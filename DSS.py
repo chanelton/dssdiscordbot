@@ -36,14 +36,14 @@ async def load(ctx, extension):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-
-
-def fromBucket(key):
-    obj = s3client.get_object(Bucket=bucket_name, Key=key)
-    body = obj['Body']
-    csv_string = body.read().decode('utf-8')
-    data = pd.read_csv(StringIO(csv_string), index_col=0)
-    return data
+#
+#
+# def fromBucket(key):
+#     obj = s3client.get_object(Bucket=bucket_name, Key=key)
+#     body = obj['Body']
+#     csv_string = body.read().decode('utf-8')
+#     data = pd.read_csv(StringIO(csv_string), index_col=0)
+#     return data
 
 
 client.run(token)

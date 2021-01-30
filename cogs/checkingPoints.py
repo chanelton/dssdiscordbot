@@ -9,13 +9,18 @@ import pandas as pd
 import datetime
 import re
 import asyncio
+import os
 
 target_guild_id = 781033657594675224
 target_channel_id = 781033719044767744
 
 main_embed = None
 
-from dssdiscordbot.DSS import s3client, bucket_name
+access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
+secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
+bucket_name = os.environ["S3_BUCKET_NAME"]
+s3client = boto3.client('s3', aws_access_key_id=access_key_id,
+                        aws_secret_access_key=secret_access_key)
 
 
 class Checking(commands.Cog):
