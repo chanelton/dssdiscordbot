@@ -13,6 +13,8 @@ import asyncio
 target_guild_id = 781033657594675224
 
 
+
+
 class Logging(commands.Cog):
 
     def __init__(self, client):

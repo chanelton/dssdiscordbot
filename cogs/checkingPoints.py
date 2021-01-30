@@ -15,6 +15,9 @@ target_channel_id = 781033719044767744
 
 main_embed = None
 
+from dssdiscordbot.DSS import s3client, bucket_name
+
+
 class Checking(commands.Cog):
 
     def __init__(self, client):
@@ -50,9 +53,19 @@ class Checking(commands.Cog):
                                   color=0x4e7a27, url="https://docs.google.com/spreadsheets"
                                                       "/d/1e3AyLUqBiZzejdhbBXw3HPL9S7jmf3P4mEE-15nfWrI/edit")
             embed.add_field(name="Top 5 Ballers:", value="later", inline=False)
-            embed.add_field(name=f"{payload.member.display_name}'s Balance:", value=f"{5}\n \nHappy Spending :)", inline=False)
+            embed.add_field(name=f"{payload.member.display_name}'s Balance:",
+                            value=f"{fromBucket('begin-end.csv')['time in call'][0]}\n \nHappy Spending :)",
+                            inline=False)
             embed.set_footer(text="React or unreact to this message to check your own balance!")
             await main_embed.edit(embed=embed)
+
+
+def fromBucket(key):
+    obj = s3client.get_object(Bucket=bucket_name, Key=key)
+    body = obj['Body']
+    csv_string = body.read().decode('utf-8')
+    data = pd.read_csv(StringIO(csv_string), index_col=0)
+    return data
 
 
 def setup(client):
