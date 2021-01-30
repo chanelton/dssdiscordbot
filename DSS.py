@@ -15,10 +15,10 @@ import functools
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix=".", intents=intents)
 
-token = os.getenv("DISCORD_BOT_TOKEN")
-access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
-secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-bucket_name = os.getenv("S3_BUCKET_NAME")
+token = os.environ["DISCORD_BOT_TOKEN"]
+access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
+secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
+bucket_name = os.environ["S3_BUCKET_NAME"]
 s3client = boto3.client('s3', aws_access_key_id=access_key_id,
                         aws_secret_access_key=secret_access_key)
 
