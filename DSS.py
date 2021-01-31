@@ -36,14 +36,18 @@ async def load(ctx, extension):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-#
-#
-# def fromBucket(key):
-#     obj = s3client.get_object(Bucket=bucket_name, Key=key)
-#     body = obj['Body']
-#     csv_string = body.read().decode('utf-8')
-#     data = pd.read_csv(StringIO(csv_string), index_col=0)
-#     return data
+
+
+# fun spam react
+@client.event
+async def on_raw_reaction_add(payload):
+    if payload.member.id == 298972130035499010 and (str(payload.emoji) in '😈'):
+        for emoji in ['🥳', '🏆', '😋', '🔥', '💯', '🚀', '😲', '🤯', '😤', '😎', '🏅']:
+            await react(await client.get_channel(payload.channel_id).fetch_message(payload.message_id), emoji)
+
+
+async def react(message, emoji):
+    await message.add_reaction(emoji)
 
 
 client.run(token)

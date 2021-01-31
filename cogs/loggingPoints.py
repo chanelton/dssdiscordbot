@@ -11,8 +11,8 @@ import re
 import asyncio
 import os
 
-target_guild_id = 781033657594675224
-announcements_channel = 781033658102054975 #731625608521580624
+target_guild_id = 781033657594675224 #DSS is 730215239760740353
+announcements_channel = 781033658102054975 #DSS is 731625608521580624
 access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
 secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
 bucket_name = os.environ["S3_BUCKET_NAME"]
@@ -51,7 +51,7 @@ class Logging(commands.Cog):
     async def on_message(self, message):
         if not message.author.bot:
             await self.add_points({message.author.id: 0.2})
-        await self.client.process_commands(message)
+        # await self.client.process_commands(message)
 
     @staticmethod
     async def add_points(dictionary):
@@ -59,7 +59,7 @@ class Logging(commands.Cog):
         for user_id in dictionary.keys():
             if user_id in list(points['id']):
                 curr_points = points[points['id'] == user_id].iloc[0, 1]
-                new_val = curr_points + dictionary[user_id]
+                new_val = round(curr_points + dictionary[user_id], 2)
                 points.loc[points['id'] == user_id, 'points'] = new_val
                 toBucket(points, "dssdollars.csv")
             elif user_id not in list(points['id']):
