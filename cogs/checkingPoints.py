@@ -49,7 +49,7 @@ class Checking(commands.Cog):
                               "Dollars for just sending messages\nCulture Com might randomly give free points at events;)\n \nHappy Spending :)")
         embed.set_footer(
             text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
-                 "Message me (Elton) when you wanna redeem prizes.\n")
+                 "\nMessage me (Elton) when you wanna redeem prizes.\n")
         embed.set_thumbnail(url="")
         global main_embed
         main_embed = await self.client.get_guild(target_guild_id).get_channel(target_channel_id).send(embed=embed)
@@ -82,7 +82,7 @@ class Checking(commands.Cog):
                                   "if you're AFK/Muted/Deafened :(\n+0.10 Dollars for reacting to exec announcements\n+0.25 "
                                   "Dollars for just sending messages\nCulture Com might randomly give free points at events ;)\n \nHappy Spending :)")
             embed.set_footer(text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
-                                  "Message me (Elton) when you wanna redeem prizes.\n")
+                                  "\nMessage me (Elton) when you wanna redeem prizes.\n")
             embed.set_thumbnail(url="")
             await main_embed.edit(embed=embed)
 
