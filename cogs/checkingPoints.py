@@ -50,7 +50,7 @@ class Checking(commands.Cog):
         embed.set_footer(
             text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
                  "\nMessage Elton when you wanna redeem prizes.\n")
-        embed.set_thumbnail(url="")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/457065146519388173/805905097979854898/unknown.png")
         global main_embed
         main_embed = await self.client.get_guild(target_guild_id).get_channel(target_channel_id).send(embed=embed)
         for i in ['🤑', '💰', '💲', '💵', '💸', '🧧', '😎']:
@@ -83,7 +83,7 @@ class Checking(commands.Cog):
                                   "Dollars for just sending messages\nCulture Com/Exec might randomly give free points at events ;)\n \nHappy Spending :)")
             embed.set_footer(text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
                                   "\nMessage Elton when you wanna redeem prizes.\n")
-            embed.set_thumbnail(url="")
+            embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/457065146519388173/805905097979854898/unknown.png")
             await main_embed.edit(embed=embed)
 
 
