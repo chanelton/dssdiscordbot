@@ -35,10 +35,8 @@ class Logging(commands.Cog):
     async def cycle(self):
         try:
             active_ids = await self.get_active_ppl()
-            # get points from database and add value
             if len(active_ids) > 0:
                 await self.add_points(active_ids)
-            # print(active_ids)
         except AttributeError:
             pass
 
