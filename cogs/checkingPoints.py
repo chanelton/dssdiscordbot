@@ -46,10 +46,10 @@ class Checking(commands.Cog):
         embed.add_field(name="Earn!",
                         value="+1 Dollar for Every Minute in Call!\n2x Dollars if you have cam on :0\n0 - 0.5x Points "
                               "if you're AFK/Muted/Deafened :(\n+0.10 Dollars for reacting to exec announcements\n+0.25 "
-                              "Dollars for just sending messages\nCulture Com might randomly give free points at events;)\n \nHappy Spending :)")
+                              "Dollars for just sending messages\nCulture Com/Exec might randomly give free points at events;)\n \nHappy Spending :)")
         embed.set_footer(
             text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
-                 "\nMessage me (Elton) when you wanna redeem prizes.\n")
+                 "\nMessage Elton when you wanna redeem prizes.\n")
         embed.set_thumbnail(url="")
         global main_embed
         main_embed = await self.client.get_guild(target_guild_id).get_channel(target_channel_id).send(embed=embed)
@@ -80,9 +80,9 @@ class Checking(commands.Cog):
             embed.add_field(name="Earn!",
                             value="+1 Dollar for Every Minute in Call!\n2x Dollars if you have cam on :0\n0 - 0.5x Points "
                                   "if you're AFK/Muted/Deafened :(\n+0.10 Dollars for reacting to exec announcements\n+0.25 "
-                                  "Dollars for just sending messages\nCulture Com might randomly give free points at events ;)\n \nHappy Spending :)")
+                                  "Dollars for just sending messages\nCulture Com/Exec might randomly give free points at events ;)\n \nHappy Spending :)")
             embed.set_footer(text="React to this message to check your own balance!\nDon't spam when its unresponsive🤬, its just a bit slow🤧"
-                                  "\nMessage me (Elton) when you wanna redeem prizes.\n")
+                                  "\nMessage Elton when you wanna redeem prizes.\n")
             embed.set_thumbnail(url="")
             await main_embed.edit(embed=embed)
 

@@ -31,7 +31,7 @@ class Logging(commands.Cog):
     async def on_ready(self):
         print('LOGGING READY.')
 
-    @tasks.loop(seconds=3)  # set to 50
+    @tasks.loop(seconds=3)  # set to 30
     async def cycle(self):
         try:
             active_ids = await self.get_active_ppl()
@@ -44,7 +44,7 @@ class Logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if payload.channel_id == announcements_channel:
+        if payload.channel_id == announcements_channel and (not payload.member.bot):
             await self.add_points({payload.user_id: 0.1})
 
     @commands.Cog.listener()
@@ -61,19 +61,19 @@ class Logging(commands.Cog):
                 curr_points = points[points['id'] == user_id].iloc[0, 1]
                 new_val = round(curr_points + dictionary[user_id], 2)
                 points.loc[points['id'] == user_id, 'points'] = new_val
-                toBucket(points, "dssdollars.csv")
             elif user_id not in list(points['id']):
                 append = pd.DataFrame([[user_id, dictionary[user_id]]], columns=['id', 'points'])
                 points = pd.concat([points, append], ignore_index=True)
-                toBucket(points, "dssdollars.csv")
+        toBucket(points, "dssdollars.csv")
 
     async def get_active_ppl(self):
         active_ids = {}
         for channel in self.client.get_guild(target_guild_id).voice_channels:
-            if len(list(channel.voice_states.keys())) > 0:
-                # active_ids.append(list(channel.voice_states.keys())[0])
-                temp_dict = await self.calculate_points(channel.voice_states)
-                active_ids = temp_dict | active_ids
+            if not (channel.name == 'afk'): # change later
+                if len(list(channel.voice_states.keys())) > 0:
+                    # active_ids.append(list(channel.voice_states.keys())[0])
+                    temp_dict = await self.calculate_points(channel.voice_states)
+                    active_ids = temp_dict | active_ids
         return active_ids
 
     @staticmethod

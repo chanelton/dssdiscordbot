@@ -39,9 +39,11 @@ class Modding(commands.Cog):
         if culture or exec in ctx.author.roles:
             active_ids = {}
             for channel in self.client.get_guild(target_guild_id).voice_channels:
-                if len(list(channel.voice_states.keys())) > 0:
-                    temp_dict = channel.voice_states
-                    active_ids = temp_dict | active_ids
+                if not (channel.name == 'afk'): # change channel name later
+                    if len(list(channel.voice_states.keys())) > 0:
+                        # active_ids.append(list(channel.voice_states.keys())[0])
+                        temp_dict = await self.calculate_points(channel.voice_states)
+                        active_ids = temp_dict | active_ids
             active_ids_20 = dict.fromkeys(active_ids.keys(), 20)
             del active_ids_20[ctx.author.id]
             await self.add_points(active_ids_20)
@@ -132,11 +134,10 @@ class Modding(commands.Cog):
                 curr_points = points[points['id'] == user_id].iloc[0, 1]
                 new_val = curr_points + dictionary[user_id]
                 points.loc[points['id'] == user_id, 'points'] = new_val
-                toBucket(points, "dssdollars.csv")
             elif user_id not in list(points['id']):
                 append = pd.DataFrame([[user_id, dictionary[user_id]]], columns=['id', 'points'])
                 points = pd.concat([points, append], ignore_index=True)
-                toBucket(points, "dssdollars.csv")
+        toBucket(points, "dssdollars.csv")
 
 
 def fromBucket(key):
