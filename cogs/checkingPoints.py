@@ -11,8 +11,8 @@ import re
 import asyncio
 import os
 
-target_guild_id = 781033657594675224 #DSS is 730215239760740353
-target_channel_id = 781033719044767744 #DSS bot spam channel later for spamming the embed that public can see
+target_guild_id = 730215239760740353
+target_channel_id = 806691390372708362
 
 main_embed = None
 
@@ -74,9 +74,14 @@ class Checking(commands.Cog):
                                   color=0x4e7a27, url="https://docs.google.com/spreadsheets"
                                                       "/d/1e3AyLUqBiZzejdhbBXw3HPL9S7jmf3P4mEE-15nfWrI/edit")
             embed.add_field(name="Top 5 Ballers ⛹️‍️:", value=top5string, inline=False)
-            embed.add_field(name=f"Most Recent Checker's Balance ({payload.member.display_name}):",
-                            value=f"{points[points['id'] == payload.member.id].iloc[0, 1]} {dollar_thesaurus}",
-                            inline=False)
+            if payload.member.id in list(points['id']):
+                embed.add_field(name=f"Most Recent Checker's Balance ({payload.member.display_name}):",
+                                value=f"{points[points['id'] == payload.member.id].iloc[0, 1]} {dollar_thesaurus}",
+                                inline=False)
+            else:
+                embed.add_field(name=f"Most Recent Checker's Balance ({payload.member.display_name}):",
+                                value=f"You Don't Have Any Points Yet :(\nHang out in calls to get started :)",
+                                inline=False)
             embed.add_field(name="Earn!",
                             value="+1 Dollar for Every Minute in Call!\n2x Dollars if you have cam on :0\n0 - 0.5x Points "
                                   "if you're AFK/Muted/Deafened :(\n+0.10 Dollars for reacting to exec announcements\n+0.25 "

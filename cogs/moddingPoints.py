@@ -11,8 +11,7 @@ import re
 import asyncio
 import os
 
-target_guild_id = 781033657594675224  # DSS is 730215239760740353
-announcements_channel = 781033658102054975  # DSS is 731625608521580624
+target_guild_id = 730215239760740353
 access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
 secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
 bucket_name = os.environ["S3_BUCKET_NAME"]
@@ -35,11 +34,11 @@ class Modding(commands.Cog):
     @commands.command()
     async def give(self, ctx, *arg):
         culture = discord.utils.find(lambda r: r.name == 'Culture', ctx.message.guild.roles)
-        exec = discord.utils.find(lambda r: r.name == 'Exec', ctx.message.guild.roles)
+        exec = discord.utils.find(lambda r: r.name == 'Leadership', ctx.message.guild.roles)
         if culture or exec in ctx.author.roles:
             active_ids = {}
             for channel in self.client.get_guild(target_guild_id).voice_channels:
-                if not (channel.name == 'afk'): # change channel name later
+                if not (channel.name == 'Away From Keyboard 😵'):
                     if len(list(channel.voice_states.keys())) > 0:
                         # active_ids.append(list(channel.voice_states.keys())[0])
                         temp_dict = await self.calculate_points(channel.voice_states)
@@ -56,9 +55,25 @@ class Modding(commands.Cog):
         else:
             await ctx.send("You can't use that command.")
 
+    @staticmethod
+    async def calculate_points(voice_states):
+        user_points = {}
+        for user_id in voice_states.keys():
+            points = 0.5
+            values = voice_states[user_id]
+            if values.self_mute:
+                points -= 0.5 / 2
+            if values.self_deaf:
+                points -= 0.5 / 2
+            if values.self_video:
+                points = points * 2
+            user_points[user_id] = points
+        return user_points
+
     @commands.command()
     async def take(self, ctx, *arg):
-        if ctx.author.id == 298972130035499010:
+        admin = discord.utils.find(lambda r: r.name == 'Admin', ctx.message.guild.roles)
+        if admin in ctx.author.roles:
             take_id = int(arg[0][3:][:-1])
             take_amount = float(arg[1])
             points = fromBucket('dssdollars.csv')
@@ -76,7 +91,8 @@ class Modding(commands.Cog):
 
     @commands.command()
     async def set(self, ctx, *arg):
-        if ctx.author.id == 298972130035499010:
+        admin = discord.utils.find(lambda r: r.name == 'Admin', ctx.message.guild.roles)
+        if admin in ctx.author.roles:
             set_id = int(arg[0][3:][:-1])
             set_amount = float(arg[1])
             points = fromBucket('dssdollars.csv')
