@@ -44,7 +44,10 @@ class Modding(commands.Cog):
                         temp_dict = await self.calculate_points(channel.voice_states)
                         active_ids = temp_dict | active_ids
             active_ids_20 = dict.fromkeys(active_ids.keys(), 20)
-            del active_ids_20[ctx.author.id]
+            try:
+                del active_ids_20[ctx.author.id]
+            except KeyError:
+                pass
             await self.add_points(active_ids_20)
             modsGiving = fromBucket("modsGiving.csv")
             append = pd.DataFrame([[datetime.datetime.now().replace(microsecond=0), ctx.author.id, 1]],
@@ -105,6 +108,20 @@ class Modding(commands.Cog):
                                   f"has been set to {set_amount} from {curr_points}")
             await ctx.send(embed=embed)
             toBucket(points, "dssdollars.csv")
+        else:
+            await ctx.send("You can't use that command.")
+
+    @commands.command()
+    async def add(self, ctx, *arg):
+        admin = discord.utils.find(lambda r: r.name == 'Admin', ctx.message.guild.roles)
+        if admin in ctx.author.roles:
+            points = fromBucket('dssdollars.csv')
+            add_this = {}
+            for i in arg:
+                if i.startswith("<@!"):
+                    add_this[i[3:][:-1]] = arg[len(arg) - 1]
+            print(add_this)
+            # await self.add_points(add_this)
         else:
             await ctx.send("You can't use that command.")
 
