@@ -121,7 +121,7 @@ class Modding(commands.Cog):
                 if i.startswith("<@!"):
                     add_this[i[3:][:-1]] = arg[len(arg) - 1]
             print(add_this)
-            # await self.add_points(add_this)
+            await self.add_points(add_this)
         else:
             await ctx.send("You can't use that command.")
 
