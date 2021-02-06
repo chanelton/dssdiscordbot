@@ -31,7 +31,7 @@ class Checking(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('CHECKING READY.')
-        # await self.base_embed()
+        await self.base_embed()
 
     async def base_embed(self):
         points = fromBucket("dssdollars.csv")
