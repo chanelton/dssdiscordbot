@@ -52,6 +52,7 @@ class Logging(commands.Cog):
 
     @staticmethod
     async def add_points(dictionary):
+        print(dictionary)
         points = fromBucket('dssdollars.csv')
         for user_id in dictionary.keys():
             if user_id in list(points['id']):
@@ -70,7 +71,7 @@ class Logging(commands.Cog):
                 if len(list(channel.voice_states.keys())) > 0:
                     # active_ids.append(list(channel.voice_states.keys())[0])
                     temp_dict = await self.calculate_points(channel.voice_states)
-                    active_ids = temp_dict | active_ids
+                    active_ids = active_ids.update(temp_dict)
         return active_ids
 
     @staticmethod

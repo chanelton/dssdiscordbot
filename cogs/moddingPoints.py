@@ -42,7 +42,7 @@ class Modding(commands.Cog):
                     if len(list(channel.voice_states.keys())) > 0:
                         # active_ids.append(list(channel.voice_states.keys())[0])
                         temp_dict = await self.calculate_points(channel.voice_states)
-                        active_ids = temp_dict | active_ids
+                        active_ids = active_ids.update(temp_dict)
             active_ids_20 = dict.fromkeys(active_ids.keys(), 20)
             try:
                 del active_ids_20[ctx.author.id]
