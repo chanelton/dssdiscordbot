@@ -71,7 +71,8 @@ class Logging(commands.Cog):
                 if len(list(channel.voice_states.keys())) > 0:
                     # active_ids.append(list(channel.voice_states.keys())[0])
                     temp_dict = await self.calculate_points(channel.voice_states)
-                    active_ids = active_ids.update(temp_dict)
+                    active_ids.update(temp_dict)
+        print(active_ids)
         return active_ids
 
     @staticmethod
