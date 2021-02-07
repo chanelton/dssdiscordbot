@@ -52,7 +52,6 @@ class Logging(commands.Cog):
 
     @staticmethod
     async def add_points(dictionary):
-        print(dictionary)
         points = fromBucket('dssdollars.csv')
         for user_id in dictionary.keys():
             if user_id in list(points['id']):

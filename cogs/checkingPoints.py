@@ -27,10 +27,15 @@ class Checking(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.cycle.start()
 
     @commands.Cog.listener()
     async def on_ready(self):
         print('CHECKING READY.')
+        await self.base_embed()
+
+    @tasks.loop(seconds=14400)
+    async def cycle(self):
         await self.base_embed()
 
     async def base_embed(self):
