@@ -1,15 +1,11 @@
-import calendar
+import datetime
+import os
 from io import StringIO
 
 import boto3
 import discord
-from discord.ext import commands, tasks
-import numpy as np
 import pandas as pd
-import datetime
-import re
-import asyncio
-import os
+from discord.ext import commands
 
 target_guild_id = 730215239760740353
 access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
@@ -31,6 +27,8 @@ class Modding(commands.Cog):
     async def on_ready(self):
         print('MODDING READY.')
 
+    # exec/culture com members can call command
+    # gives everyone active in call
     @commands.command()
     async def give(self, ctx, *arg):
         culture = discord.utils.find(lambda r: r.name == 'Culture', ctx.message.guild.roles)
