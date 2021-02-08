@@ -93,7 +93,7 @@ class Logging(commands.Cog):
                     active_ids.update(temp_dict)
         print(active_ids)
         if len(active_ids) == 1:
-            return dict.fromkeys(active_ids.keys(), 0.1)
+            return dict.fromkeys(active_ids.keys(), 0.5)
         else:
             return active_ids
 
