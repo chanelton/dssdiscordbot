@@ -43,13 +43,13 @@ class Checking(commands.Cog):
 
     async def base_embed(self):
         points = fromBucket("dssdollars.csv")
-        top5 = points.sort_values('points', ascending=False)[:5]
-        top5string = "".join([f"{self.client.get_guild(target_guild_id).get_member(top5.iloc[row, 0]).display_name} - {top5.iloc[row, 1]}\n" for row in np.arange(len(top5))])
+        top10 = points.sort_values('points', ascending=False)[:10]
+        top10string = "".join([f"{self.client.get_guild(target_guild_id).get_member(top10.iloc[row, 0]).display_name} - {top10.iloc[row, 1]}\n" for row in np.arange(len(top10))])
         embed = discord.Embed(title="🤑 DSS DOLLASSSS 🤑",
                               description=f"**Click hyperlink for rewards**\nLast Updated: {datetime.datetime.now().replace(microsecond=0)}",
                               color=0x4e7a27, url="https://docs.google.com/spreadsheets"
                                                   "/d/1e3AyLUqBiZzejdhbBXw3HPL9S7jmf3P4mEE-15nfWrI/edit")
-        embed.add_field(name="Top 5 Ballers ⛹️‍️:", value=top5string, inline=False)
+        embed.add_field(name="Top 10 Ballers ⛹️‍️:", value=top10string, inline=False)
         embed.add_field(name="Most Recent Checker's Balance:", value="N/A", inline=False)
         embed.add_field(name="Earn!",
                         value="+1 Dollar for Every Minute in Call!\n2x Dollars if you have cam on :0\n0 - 0.5x Points "
