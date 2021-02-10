@@ -73,15 +73,15 @@ class Checking(commands.Cog):
         if not payload.member.bot and payload.message_id == main_embed.id:
             dollar_thesaurus = np.random.choice(['BIG BUCKS', 'DSS Dollars', 'Units of Monetary Currency', 'Dollars of Cold Hard Cash', '$DSS Stonks📈'])
             points = fromBucket("dssdollars.csv")
-            top5 = points.sort_values('points', ascending=False)[:5]
-            top5string = "".join([
-                                     f"{self.client.get_guild(target_guild_id).get_member(top5.iloc[row, 0]).display_name} - {top5.iloc[row, 1]}\n"
-                                     for row in np.arange(len(top5))])
+            top10 = points.sort_values('points', ascending=False)[:10]
+            top10string = "".join([
+                                     f"{self.client.get_guild(target_guild_id).get_member(top10.iloc[row, 0]).display_name} - {top10.iloc[row, 1]}\n"
+                                     for row in np.arange(len(top10))])
             embed = discord.Embed(title="🤑 DSS DOLLASSSS 🤑",
                                   description=f"**Click hyperlink for rewards**\nLast Updated: {datetime.datetime.now().replace(microsecond=0)}",
                                   color=0x4e7a27, url="https://docs.google.com/spreadsheets"
                                                       "/d/1e3AyLUqBiZzejdhbBXw3HPL9S7jmf3P4mEE-15nfWrI/edit")
-            embed.add_field(name="Top 5 Ballers ⛹️‍️:", value=top5string, inline=False)
+            embed.add_field(name="Top 10 Ballers ⛹️‍️:", value=top10string, inline=False)
             if payload.member.id in list(points['id']):
                 embed.add_field(name=f"Most Recent Checker's Balance ({payload.member.display_name}):",
                                 value=f"{points[points['id'] == payload.member.id].iloc[0, 1]} {dollar_thesaurus}",
