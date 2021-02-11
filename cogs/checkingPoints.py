@@ -34,7 +34,7 @@ class Checking(commands.Cog):
         print('CHECKING READY.')
         await self.base_embed()
 
-    @tasks.loop(seconds=14400)
+    @tasks.loop(seconds=28800)
     async def cycle(self):
         try:
             await self.base_embed()
